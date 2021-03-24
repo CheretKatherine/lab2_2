@@ -27,7 +27,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test() {
+    void calculateJackardSimilarity_TheSameData() {
         int[] sequence = {-30, -21, 0, 2, 6, 9, 14, 25};
         int[] sequence2 = sequence.clone();
         double expected = 1;
@@ -35,7 +35,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test0() {
+    void calculateJackardSimilarity_TheSameData_InDifferentOrder() {
         int[] sequence = {1, 3, 5, 7, 9};
         int[] sequence2 = {9, 7, 5, 3, 1};
         double expected = 1;
@@ -43,7 +43,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test6() {
+    void calculateJackardSimilarity_EmptyArrays() {
         int[] sequence = {};
         int[] sequence2 = {};
         double expected = 1;
@@ -51,7 +51,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test1() {
+    void calculateJackardSimilarity_DifferentData() {
         int[] sequence = {-30, -21, 0, 2, 6, 9, 14, 25};
         int[] sequence2 = {-18, -5, 1, 4, 12};
         double expected = 0;
@@ -59,7 +59,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test2() {
+    void calculateJackardSimilarity_FirstArrayIsEmpty() {
         int[] sequence = {};
         int[] sequence2 = {-18, -5, 1, 4, 12};
         double expected = 0;
@@ -67,7 +67,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test3() {
+    void calculateJackardSimilarity_SecondArrayIsEmpty() {
         int[] sequence = {-30, -21, 0, 2, 6, 9, 14, 25};
         int[] sequence2 = {};
         double expected = 0;
@@ -75,7 +75,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test4() {
+    void calculateJackardSimilarity_FirstArrayContainsSecond() {
         int[] sequence = {-30, -21, 0, 2, 6, 9, 14, 25};
         int[] sequence2 = Arrays.copyOfRange(sequence, 1, 4);
         int common = sequence2.length;
@@ -84,7 +84,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test5() {
+    void calculateJackardSimilarity_SecondArrayContainsFirst() {
         int[] sequence2 = {-30, -21, 0, 2, 6, 9, 14, 25};
         int[] sequence = Arrays.copyOfRange(sequence2, 1, 4);
         int common = sequence.length;
@@ -93,19 +93,19 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test7() {
-        int[] sequence2 = {14, 25};
-        int[] sequence = {25, 14};
-        int common = sequence.length;
+    void calculateJackardSimilarity_OneCommonElement() {
+        int[] sequence2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] sequence = {-4, -3, -2, -1, 0};
+        int common = 1;
         double expected = (double)common/(sequence.length+sequence2.length-common);
         assertEquals(expected, finder.calculateJackardSimilarity(sequence, sequence2));
     }
 
     @Test
-    void test8() {
-        int[] sequence2 = {1, 4, 6, 8};
-        int[] sequence = {1, 4, 9};
-        int common = 2;
+    void calculateJackardSimilarity_LotCommonElements() {
+        int[] sequence2 = {12, 13, 14, 15, 16, 17, 18, 19, 20};
+        int[] sequence = {7, 8, 9, 10, 11, 12, 13, 14};
+        int common = 3;
         double expected = (double)common/(sequence.length+sequence2.length-common);
         assertEquals(expected, finder.calculateJackardSimilarity(sequence, sequence2));
     }
